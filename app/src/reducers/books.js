@@ -1,6 +1,6 @@
 const initialState = {
     isReady: false,     // загрузка данных
-    items: []         // список книг
+    items: []           // список книг - пока не получил данные он будет пустым
 }
 
 export default (state = initialState, action) => {
@@ -14,7 +14,6 @@ export default (state = initialState, action) => {
         case "SET_IS_READY": 
             return {
                 isReady: action.payload,
-                isReady: true,
             }
         default:
             return state;

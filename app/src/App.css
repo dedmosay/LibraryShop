@@ -1,0 +1,13 @@
+body {
+    margin-top: 20px;
+}
+
+.ui.menu {
+    margin-bottom: 20px !important;
+}
+.ui.image {
+    max-height: 345px;
+}
+.content {
+    min-height: 140px;
+}
