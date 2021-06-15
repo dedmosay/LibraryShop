@@ -1,25 +1,20 @@
 const initialState = {
-    books: [
-        {
-            id: 0,
-            title: 'Old books'
-        }
-    ],
+    isReady: false,     // загрузка данных
+    items: []         // список книг
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case "SET_BOOKS":
             return {
-                ...state,
-                books: action.payload
+                    ...state,
+                    items: action.payload,
+                    isReady: true
             }
-        case "ADD_BOOKS":
+        case "SET_IS_READY": 
             return {
-                books: [
-                    ...state.books,
-                    action.payload
-                ]
+                isReady: action.payload,
+                isReady: true,
             }
         default:
             return state;

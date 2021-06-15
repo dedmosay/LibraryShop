@@ -1,35 +1,38 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { setBooks } from './actions/books'
+import { setBooks } from './actions/books';
+// import books from './books.json';
+import axios from 'axios';
 
 class App extends React.Component {
-  render() {
-    console.log(this.props)
-    const { books } = this.props.books
-    const { setBooks } = this.props
 
-    // Изменени для примера
-    const newBooks = [
-      {
-        id: 0,
-        title: 'New Books ' + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
-      }
-    ]
+  componentWillMount() {
+    const { setBooks } = this.props
+    axios.get('/books.json').then(({ data }) => {
+      setBooks(data)
+    })
+  }
+
+  render() {
+    const { books } = this.props;
     return (
-      <div className="App">
-        <header className="container">
-          Learn React
-          <h1>{books[0].title}</h1>
-          <button onClick={setBooks.bind(this, newBooks)}>SET BOOKS</button>
-        </header>
-      </div>
+      <ul>
+        {
+          !books.length ? 'Загрузка...':
+              books.map(book => (
+                <li>
+                  <b>{book.title}</b> {book.author}
+                </li>
+              ))
+        }
+      </ul>
     );
   }
 }
 
 // просто передает состояние из store
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = ({ books }) => ({
+  books: books.items
 })
 
 const mapDispatchToProps = dispatch => ({
