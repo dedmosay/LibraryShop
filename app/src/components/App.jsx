@@ -1,13 +1,12 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { setBooks } from './actions/books';
 import axios from 'axios';
 import { Container } from "semantic-ui-react";
-import Menu from "./components/Menu";
-import BookCard from "./components/BookCard";
+import Menu from "./Menu";
+import BookCard from "./BookCard";
 import { Card } from 'semantic-ui-react'
+import Filter from "../containers/Filter";
 
-import './App.css'
+import '../App.css'
 
 class App extends React.Component {
 
@@ -17,9 +16,7 @@ class App extends React.Component {
      *   mapDispatchToProps отправляет запрос в actions и меняет isReady на true 
      * */
     const { setBooks } = this.props
-    axios.get('/books.json').then(({ data }) => {
-      setBooks(data)
-    })
+    axios.get('/books.json').then(({ data }) => { setBooks(data) })
   }
 
   render() {
@@ -27,6 +24,7 @@ class App extends React.Component {
     return (
       <Container>
         <Menu />
+        <Filter />
         <Card.Group itemsPerRow={4}>
 
           {!isReady ? 'Загрузка...' : books.map((book, i) => (
@@ -41,14 +39,5 @@ class App extends React.Component {
   }
 }
 
-// просто передает состояние из store
-const mapStateToProps = ({ books }) => ({
-  books: books.items,
-  isReady: books.isReady
-})
 
-const mapDispatchToProps = dispatch => ({
-  setBooks: books => dispatch(setBooks(books))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App;
