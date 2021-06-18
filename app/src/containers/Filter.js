@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import Filter from '../components/Filter'
 
 
-const mapStateToProps = ({ books }) => ({
-    filterBy: books.filterBy
+const mapStateToProps = ({ filter }) => ({
+    filterBy: filter.filterBy
 })
 
 const mapDispatchToProps = dispatch => ({
